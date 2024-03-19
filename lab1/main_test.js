@@ -6,22 +6,11 @@ test("Test MyClass's addStudent", () => {
     const myClass = new MyClass();
     const student = new Student();
     student.setName('Alice');
-    
+
     const result = myClass.addStudent(student);
-    
+
     assert.strictEqual(result, 0);
     assert.strictEqual(myClass.students.length, 1);
-});
-
-test("Test MyClass's getStudentById", () => {
-    const myClass = new MyClass();
-    const student = new Student();
-    student.setName('Bob');
-    myClass.addStudent(student);
-    
-    const result = myClass.getStudentById(0);
-    
-    assert.strictEqual(result, student);
 });
 
 test("Test MyClass's addStudent with invalid student", () => {
@@ -29,6 +18,17 @@ test("Test MyClass's addStudent with invalid student", () => {
     const result = myClass.addStudent({});
     assert.strictEqual(result, -1);
     assert.strictEqual(myClass.students.length, 0);
+});
+
+test("Test MyClass's getStudentById with valid id", () => {
+    const myClass = new MyClass();
+    const student = new Student();
+    student.setName('Bob');
+    myClass.addStudent(student);
+
+    const result = myClass.getStudentById(0);
+
+    assert.strictEqual(result, student);
 });
 
 test("Test MyClass's getStudentById with invalid id", () => {
@@ -55,7 +55,13 @@ test("Test Student's setName", () => {
     assert.strictEqual(student.name, 'John');
 });
 
-test("Test Student's getName", () => {
+test("Test Student's setName with invalid input", () => {
+    const student = new Student();
+    student.setName(123); // Passing invalid input
+    assert.strictEqual(student.name, undefined);
+});
+
+test("Test Student's getName when name is set", () => {
     const student = new Student();
     student.setName('Alice');
     const name = student.getName();
