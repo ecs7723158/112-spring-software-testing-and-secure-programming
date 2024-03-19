@@ -11,7 +11,6 @@ test("Test MyClass's addStudent", () => {
     
     assert.strictEqual(result, 0);
     assert.strictEqual(myClass.students.length, 1);
-    throw new Error("Test not implemented");
 });
 
 test("Test MyClass's getStudentById", () => {
@@ -23,23 +22,48 @@ test("Test MyClass's getStudentById", () => {
     const result = myClass.getStudentById(0);
     
     assert.strictEqual(result, student);
-    throw new Error("Test not implemented");
+});
+
+test("Test MyClass's addStudent with invalid student", () => {
+    const myClass = new MyClass();
+    const result = myClass.addStudent({});
+    assert.strictEqual(result, -1);
+    assert.strictEqual(myClass.students.length, 0);
+});
+
+test("Test MyClass's getStudentById with invalid id", () => {
+    const myClass = new MyClass();
+    const result = myClass.getStudentById(0);
+    assert.strictEqual(result, null);
+});
+
+test("Test MyClass's getStudentById with negative id", () => {
+    const myClass = new MyClass();
+    const result = myClass.getStudentById(-1);
+    assert.strictEqual(result, null);
+});
+
+test("Test MyClass's getStudentById with id beyond length", () => {
+    const myClass = new MyClass();
+    const result = myClass.getStudentById(1);
+    assert.strictEqual(result, null);
 });
 
 test("Test Student's setName", () => {
     const student = new Student();
     student.setName('John');
-    
     assert.strictEqual(student.name, 'John');
-    throw new Error("Test not implemented");
 });
 
 test("Test Student's getName", () => {
     const student = new Student();
     student.setName('Alice');
-    
     const name = student.getName();
-    
     assert.strictEqual(name, 'Alice');
-    throw new Error("Test not implemented");
+});
+
+test("Test Student's getName when name is not set", () => {
+    const student = new Student();
+    const name = student.getName();
+    assert.strictEqual(name, '');
 });
