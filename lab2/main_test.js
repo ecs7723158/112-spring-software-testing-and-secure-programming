@@ -37,7 +37,7 @@ test("Application getNames()", async (t) => {
     const app = new Application();
     app.people = nameList;
     app.selected = [];
-    await app.getNames(); 
+    await app.getNames();
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
 });
@@ -65,7 +65,6 @@ test("Application selectNextPerson()", async (t) => {
     const names = ['A', 'B', 'C'];
     app.people = names;
 
-    
     for (let i = 0; i < app.people.length; i++) {
         app.selected.push(app.people[i]);
     }
