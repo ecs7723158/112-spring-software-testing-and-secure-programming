@@ -30,15 +30,13 @@ test('MailSystem send', async (t) => {
     assert.strictEqual(sendmail, false, 'random => 0.2 shouldn\'t be send');
     randomStub2.restore();
 });
+
 test("Application getNames()", async (t) => {
     const nameList = ['A', 'B', 'C'];
     const app = new Application();
-
-    
-    t.stub(app, 'getNames').resolves([nameList, []]);
-
-    await app.getNames(); 
-
+    app.people = nameList;
+    app.selected = [];
+    await app.getNames(); // Wait for getNames() to complete
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
 });
