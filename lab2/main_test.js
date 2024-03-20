@@ -2,10 +2,9 @@
 const test = require('node:test');
 const assert = require('assert');
 const { Application, MailSystem } = require('./main');
-const { send } = require('process');
 const fs = require('fs');
 
-test('MailSystem write', (t) => {
+test('MailSystem write', async (t) => {
     const MSw = new MailSystem();
     const MSwName = 'Eric';
 
@@ -19,7 +18,7 @@ test('MailSystem write', (t) => {
     assert.strictEqual(contextNumber, 'Congrats, 111!', 'Error 111');
 });
 
-test('MailSystem send', (t) => {
+test('MailSystem send', async (t) => {
     const MSs = new MailSystem();
     const MSsName = 'Eric';
 
@@ -38,13 +37,14 @@ test("Application getNames()", async (t) => {
     const nameList = ['A', 'B', 'C'];
     fs.writeFileSync('name_list.txt', 'A\nB\nC', 'utf8');
     const app = new Application();
-    const getNameList = await app.getNames();
-    assert.deepStrictEqual(getNameList, [nameList, []]);
+    await app.getNames(); 
+    assert.deepStrictEqual(app.people, nameList);
+    assert.deepStrictEqual(app.selected, []);
 });
 
 test("Application getRandomPerson()", async (t) => {
     const app = new Application();
-    const names = await app.getNames();
+    await app.getNames(); 
 
     const randomStub1 = t.stub(Math, 'random').returns(0);
     assert.strictEqual(app.getRandomPerson(), 'A');
@@ -61,9 +61,11 @@ test("Application getRandomPerson()", async (t) => {
 
 test("Application selectNextPerson()", async (t) => {
     const app = new Application();
+    await app.getNames(); 
+
     const person = await app.getNames();
 
-    //Simulate getRandomPerson()
+    
     app.selected = ['A'];
     let cnt = 0;
     const getRandomPersonStub = t.stub(app, 'getRandomPerson', () => {
@@ -81,12 +83,14 @@ test("Application selectNextPerson()", async (t) => {
     assert.strictEqual(app.selectNextPerson(), 'C');
     assert.deepStrictEqual(app.selected, ['A', 'B', 'C']);
 
+    
     assert.strictEqual(app.selectNextPerson(), null);
     getRandomPersonStub.restore();
 });
 
 test("Application notifySelected()", async (t) => {
     const app = new Application();
+    await app.getNames(); 
     app.selected = ['A', 'B', 'C'];
     app.mailSystem.send = t.mock.fn(app.mailSystem.send);
     app.mailSystem.write = t.mock.fn(app.mailSystem.write);
@@ -95,4 +99,3 @@ test("Application notifySelected()", async (t) => {
     assert.strictEqual(app.mailSystem.send.mock.calls.length, 3);
     assert.strictEqual(app.mailSystem.write.mock.calls.length, 3);
 });
-
