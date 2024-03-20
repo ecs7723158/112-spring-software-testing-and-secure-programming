@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('assert');
 const { Application, MailSystem } = require('./main');
+const fs = require('fs');
 
 test('MailSystem write', async (t) => {
     const MSw = new MailSystem();
@@ -33,9 +34,8 @@ test('MailSystem send', async (t) => {
 
 test("Application getNames()", async (t) => {
     const nameList = ['A', 'B', 'C'];
+    fs.writeFileSync('name_list.txt', 'A\nB\nC', 'utf8');
     const app = new Application();
-    app.people = nameList;
-    app.selected = [];
     await app.getNames(); // Wait for getNames() to complete
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
@@ -43,8 +43,7 @@ test("Application getNames()", async (t) => {
 
 test("Application getRandomPerson()", async (t) => {
     const app = new Application();
-    const names = ['A', 'B', 'C'];
-    app.people = names;
+    await app.getNames(); // Wait for getNames() to complete
 
     const randomStub1 = t.stub(Math, 'random').returns(0);
     assert.strictEqual(app.getRandomPerson(), 'A');
@@ -61,8 +60,7 @@ test("Application getRandomPerson()", async (t) => {
 
 test("Application selectNextPerson()", async (t) => {
     const app = new Application();
-    const names = ['A', 'B', 'C'];
-    app.people = names;
+    await app.getNames(); // Wait for getNames() to complete
 
     // Ensure coverage for all branches
     for (let i = 0; i < app.people.length; i++) {
@@ -74,8 +72,7 @@ test("Application selectNextPerson()", async (t) => {
 
 test("Application notifySelected()", async (t) => {
     const app = new Application();
-    const names = ['A', 'B', 'C'];
-    app.people = names;
+    await app.getNames(); // Wait for getNames() to complete
     app.selected = ['A', 'B', 'C'];
     app.mailSystem.send = t.mock.fn(app.mailSystem.send);
     app.mailSystem.write = t.mock.fn(app.mailSystem.write);
