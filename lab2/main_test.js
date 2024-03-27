@@ -3,7 +3,6 @@ const assert = require('assert');
 const { Application, MailSystem } = require('./main');
 
 test('MailSystem write', async (t) => {
-    // 测试 MailSystem 的 write 方法
     const MSw = new MailSystem();
     const MSwName = 'Eric';
 
@@ -18,7 +17,6 @@ test('MailSystem write', async (t) => {
 });
 
 test('MailSystem send', async (t) => {
-    // 测试 MailSystem 的 send 方法
     const MSs = new MailSystem();
     const MSsName = 'Eric';
 
@@ -39,15 +37,16 @@ test("Application getNames()", async (t) => {
     const app = new Application();
     
     // 模拟 getNames 方法返回预设的数据
-    t.stub(app, 'getNames').resolves([nameList, []]);
+    const getNamesStub = t.stub(app, 'getNames').resolves([nameList, []]);
 
     await app.getNames(); // 等待 getNames() 完成
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
+
+    getNamesStub.restore();
 });
 
 test("Application getRandomPerson()", async (t) => {
-    // 测试 Application 的 getRandomPerson 方法
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
@@ -76,11 +75,11 @@ test("Application selectNextPerson()", async (t) => {
         app.selected.push(app.people[i]);
     }
 
+    // 当所有人都已经被选中时，应该返回 null
     assert.strictEqual(app.selectNextPerson(), null);
 });
 
 test("Application notifySelected()", async (t) => {
-    // 测试 Application 的 notifySelected 方法
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
