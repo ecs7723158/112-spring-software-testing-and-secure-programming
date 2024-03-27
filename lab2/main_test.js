@@ -4,7 +4,7 @@ const assert = require('assert');
 
 test.mock.method(require('fs'), 'readFile', (file, options, callback) => {
     
-    callback(null, 'Peter\njack\nBan');
+    callback(null, 'Juila\njack\nBan');
 });
 
 
@@ -13,7 +13,7 @@ const { Application, MailSystem } = require('./main');
 test('MailSystem_write()', () => {
    
     const ms = new MailSystem();
-    assert.strictEqual(ms.write('Peter'), 'Congrats, Peter!');
+    assert.strictEqual(ms.write('Julia'), 'Congrats, Julia!');
     assert.strictEqual(ms.write(null), 'Congrats, null!');
     assert.strictEqual(ms.write(), 'Congrats');
 });
@@ -53,7 +53,7 @@ test('Application_selectNextPerson()', async () => {
     
     const [names] = await app.getNames();
     
-    app.selected = ['Peter'];
+    app.selected = ['Juila'];
     let cnt = 0;
     test.mock.method(app, 'getRandomPerson', () => {
         if (cnt <= names.length) { 
