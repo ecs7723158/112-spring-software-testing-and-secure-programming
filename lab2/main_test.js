@@ -34,8 +34,10 @@ test('MailSystem send', async (t) => {
 test("Application getNames()", async (t) => {
     const nameList = ['A', 'B', 'C'];
     const app = new Application();
-    app.people = nameList;
-    app.selected = [];
+    
+    // Stub getNames method to return fake data
+    t.stub(app, 'getNames').resolves([nameList, []]);
+
     await app.getNames(); // Wait for getNames() to complete
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
@@ -77,10 +79,11 @@ test("Application notifySelected()", async (t) => {
     const names = ['A', 'B', 'C'];
     app.people = names;
     app.selected = ['A', 'B', 'C'];
-    app.mailSystem.send = t.mock.fn(app.mailSystem.send);
-    app.mailSystem.write = t.mock.fn(app.mailSystem.write);
+    app.mailSystem.send = t.stub().returns(true);
+    app.mailSystem.write = t.stub().returns('Congrats, A!');
+
     app.notifySelected();
 
-    assert.strictEqual(app.mailSystem.send.mock.calls.length, 3);
-    assert.strictEqual(app.mailSystem.write.mock.calls.length, 3);
+    assert.strictEqual(app.mailSystem.send.callCount, 3);
+    assert.strictEqual(app.mailSystem.write.callCount, 3);
 });
