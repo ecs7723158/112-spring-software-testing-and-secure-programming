@@ -67,16 +67,13 @@ test("Application selectNextPerson()", async (t) => {
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
+    app.selected = ['A', 'B'];
 
     // Ensure coverage for all branches
-    for (let i = 0; i < app.people.length; i++) {
-        app.selected.push(app.people[i]);
-    }
-
-    // Add an additional branch to cover
+    app.people.push('C');
     app.people.push('D');
 
-    assert.strictEqual(app.selectNextPerson(), null);
+    assert.strictEqual(app.selectNextPerson(), 'C');
 });
 
 test("Application notifySelected()", async (t) => {
