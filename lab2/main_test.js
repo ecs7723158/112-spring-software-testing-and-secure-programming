@@ -3,6 +3,7 @@ const assert = require('assert');
 const { Application, MailSystem } = require('./main');
 
 test('MailSystem write', async (t) => {
+    // 测试 MailSystem 的 write 方法
     const MSw = new MailSystem();
     const MSwName = 'Eric';
 
@@ -17,6 +18,7 @@ test('MailSystem write', async (t) => {
 });
 
 test('MailSystem send', async (t) => {
+    // 测试 MailSystem 的 send 方法
     const MSs = new MailSystem();
     const MSsName = 'Eric';
 
@@ -32,18 +34,20 @@ test('MailSystem send', async (t) => {
 });
 
 test("Application getNames()", async (t) => {
+    // 测试 Application 的 getNames 方法
     const nameList = ['A', 'B', 'C'];
     const app = new Application();
     
-    // Stub getNames method to return fake data
+    // 模拟 getNames 方法返回预设的数据
     t.stub(app, 'getNames').resolves([nameList, []]);
 
-    await app.getNames(); // Wait for getNames() to complete
+    await app.getNames(); // 等待 getNames() 完成
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
 });
 
 test("Application getRandomPerson()", async (t) => {
+    // 测试 Application 的 getRandomPerson 方法
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
@@ -62,11 +66,12 @@ test("Application getRandomPerson()", async (t) => {
 });
 
 test("Application selectNextPerson()", async (t) => {
+    // 测试 Application 的 selectNextPerson 方法
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
 
-    // Ensure coverage for all branches
+    // 确保覆盖所有分支
     for (let i = 0; i < app.people.length; i++) {
         app.selected.push(app.people[i]);
     }
@@ -75,6 +80,7 @@ test("Application selectNextPerson()", async (t) => {
 });
 
 test("Application notifySelected()", async (t) => {
+    // 测试 Application 的 notifySelected 方法
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
