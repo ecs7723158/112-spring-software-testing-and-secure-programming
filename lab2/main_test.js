@@ -32,14 +32,13 @@ test('MailSystem send', async (t) => {
 });
 
 test("Application getNames()", async (t) => {
-    // 测试 Application 的 getNames 方法
     const nameList = ['A', 'B', 'C'];
     const app = new Application();
     
-    // 模拟 getNames 方法返回预设的数据
+    // Stub getNames method to return fake data
     const getNamesStub = t.stub(app, 'getNames').resolves([nameList, []]);
 
-    await app.getNames(); // 等待 getNames() 完成
+    await app.getNames(); // Wait for getNames() to complete
     assert.deepStrictEqual(app.people, nameList);
     assert.deepStrictEqual(app.selected, []);
 
@@ -65,17 +64,18 @@ test("Application getRandomPerson()", async (t) => {
 });
 
 test("Application selectNextPerson()", async (t) => {
-    // 测试 Application 的 selectNextPerson 方法
     const app = new Application();
     const names = ['A', 'B', 'C'];
     app.people = names;
 
-    // 确保覆盖所有分支
+    // Ensure coverage for all branches
     for (let i = 0; i < app.people.length; i++) {
         app.selected.push(app.people[i]);
     }
 
-    // 当所有人都已经被选中时，应该返回 null
+    // Add an additional branch to cover
+    app.people.push('D');
+
     assert.strictEqual(app.selectNextPerson(), null);
 });
 
