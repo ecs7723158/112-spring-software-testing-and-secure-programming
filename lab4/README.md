@@ -1,12 +1,19 @@
-# Lab1
+# Lab4
 
 ## Introduction
 
-In this lab, you will write unit tests for functions implemented in `main.js`. You can learn how to use classes and functions in it by uncommenting the code in it. (But remember don't commit them on GitHub)
+In this lab, you will write tests in `main_test.js`. You can learn how to use [Puppeteer](https://pptr.dev/) to tests a web UI.
+
+## Preparation (Important!!!)
+
+1. Sync fork your branch (e.g., `SQLab:311XXXXXX`)
+2. `git checkout -b lab4` (**NOT** your student ID !!!)
 
 ## Requirement
 
-1. Write test cases in `main_test.js` and achieve 100% code coverage. (100%)
+1. (100%) Goto https://pptr.dev/, type `chipi chipi chapa chapa` into the search box, click on **1st** result in the **Docs** section, and print the title.
+
+For the detailed steps and hints, please check the slide of this lab.
 
 You can run `validate.sh` in your local to test if you satisfy the requirements.
 

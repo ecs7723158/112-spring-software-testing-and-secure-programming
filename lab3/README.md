@@ -1,12 +1,21 @@
-# Lab1
+# Lab3
 
 ## Introduction
 
 In this lab, you will write unit tests for functions implemented in `main.js`. You can learn how to use classes and functions in it by uncommenting the code in it. (But remember don't commit them on GitHub)
 
+## Preparation (Important!!!)
+
+1. Sync fork your branch (e.g., `SQLab:311XXXXXX`)
+2. `git checkout 311XXXXXX`
+3. `git pull`
+4. `git checkout -b lab3` (**NOT** your student ID !!!)
+
 ## Requirement
 
-1. Write test cases in `main_test.js` and achieve 100% code coverage. (100%)
+1. (40%) Write test cases in `main_test.js` and achieve 100% code coverage.
+2. (30%) For each function, parameterize its testcases to test the error-results.
+3. (30%) For each function, use at least 3 parameterized testcases to test the non-error-results.
 
 You can run `validate.sh` in your local to test if you satisfy the requirements.
 
