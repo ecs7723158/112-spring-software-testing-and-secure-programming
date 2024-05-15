@@ -11,14 +11,11 @@ const puppeteer = require('puppeteer');
     await page.click('.DocSearch-Button');
     await wait(100);
     await page.waitForSelector('#docsearch-input');
-    await wait(100);
     await page.type('#docsearch-input', 'chipi chipi chapa chapa');
     await wait(100);
     await page.waitForSelector('#docsearch-item-5 a');
-    await wait(1000);
     await page.click('#docsearch-item-5');
     await page.waitForSelector('h1');
-    await wait(100);
     const title = await page.evaluate(() => document.querySelector('h1').textContent);
     console.log(title);
     // Hints:
