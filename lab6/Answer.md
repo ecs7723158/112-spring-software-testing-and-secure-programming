@@ -30,16 +30,17 @@ ID: 510558013
 +++ Testing aborted by user +++
 [+] We're done here. Have a nice day!
 ```
+
+### Run Crash Result
+```
 ../src/bmpcomp ./out/crashes/id:000000,sig:06,src:000000,op:flip1,pos:20
 size of Herder 54
 ASAN:DEADLYSIGNAL
+=================================================================
 ==26947==ERROR: AddressSanitizer: stack-overflow on address 0x7ffec48187a8 (pc 0x563cd7d0b1fb bp 0x7ffec60194e0 sp 0x7ffec48187b0 T0)
     #0 0x563cd7d0b1fa in main /home/user/Desktop/lab6/src/hw0302.c:47
     #1 0x7fd59ba4fc86 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x21c86)
     #2 0x563cd7d0bc79 in _start (/home/user/Desktop/lab6/src/bmpcomp+0x2c79)
 SUMMARY: AddressSanitizer: stack-overflow /home/user/Desktop/lab6/src/hw0302.c:47 in main
 ==26947==ABORTING
-### Run Crash Result
-```
-
 ```
