@@ -10,7 +10,7 @@ def success_condition(state):
 
 def fail_condition(state):
     return b"Login failed" in state.posix.dumps(sys.stdout.fileno())
-    
+
 simulation.explore(find=success_condition, avoid=fail_condition)
 solution = simulation.found[0]
 print(solution.posix.dumps(sys.stdin.fileno()))
